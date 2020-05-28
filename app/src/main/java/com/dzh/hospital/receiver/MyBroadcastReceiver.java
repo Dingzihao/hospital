@@ -4,7 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.dzh.hospital.MainActivity;
+import com.dzh.hospital.view.MainActivity;
 
 
 /**
