@@ -15,6 +15,11 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
+/**
+ * @author 丁子豪
+ * @desc 欢迎页
+ * @data on 2020/5/28 13:45
+ */
 public class WelcomeActivity extends AppCompatActivity {
     private final CompositeDisposable mDisposable = new CompositeDisposable();
 

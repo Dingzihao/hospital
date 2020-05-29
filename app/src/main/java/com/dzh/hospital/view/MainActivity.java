@@ -3,6 +3,7 @@ package com.dzh.hospital.view;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -13,13 +14,19 @@ import androidx.databinding.DataBindingUtil;
 
 import com.blankj.utilcode.util.DeviceUtils;
 import com.blankj.utilcode.util.NetworkUtils;
-import com.dzh.hospital.DecoObject;
 import com.dzh.hospital.R;
 import com.dzh.hospital.databinding.ActivityMainBinding;
+import com.dzh.hospital.util.ChineseToSpeech;
 
+/**
+ * @author 丁子豪
+ * @desc 主页
+ * @data on 2020/5/28 14:10
+ */
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     private ActivityMainBinding mDataBinding;
+    ChineseToSpeech mSpeech;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initView() {
+        mSpeech = new ChineseToSpeech(this);
         String mac = DeviceUtils.getMacAddress();
         String ipAddress = NetworkUtils.getIPAddress(true);
 
@@ -74,4 +82,24 @@ public class MainActivity extends AppCompatActivity {
         mDataBinding.webView.evaluateJavascript("javascript:dealWithData(" + macAddress + "," + ip + ")", value -> {
         });
     }
+
+    public void speak() {
+        mSpeech.speech("请125号丁春秋到五诊区12诊室就诊");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (null != mSpeech) {
+            mSpeech.destroy();
+        }
+    }
+
+    public class DecoObject {
+        @JavascriptInterface
+        public void speak(String data) {
+            mSpeech.speech("请125号丁春秋到五诊区12诊室就诊");
+        }
+    }
+
 }
