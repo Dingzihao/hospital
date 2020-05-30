@@ -45,18 +45,18 @@ public class TTSUtils implements SpeechSynthesizerListener {
     }
 
     public void init(Context context) {
-        File file = new File(SAMPLE_DIR);
-        if (!file.exists()) {
-            file.mkdirs();
-        }
-        File textModelFile = new File(SAMPLE_DIR + TEXT_MODEL_NAME);
-        if (!textModelFile.exists()) {
-            copyAssetsFile2SDCard(context, TEXT_MODEL_NAME, SAMPLE_DIR + TEXT_MODEL_NAME);
-        }
-        File speechModelFile = new File(SAMPLE_DIR + SPEECH_FEMALE_MODEL_NAME);
-        if (!speechModelFile.exists()) {
-            copyAssetsFile2SDCard(context, SPEECH_FEMALE_MODEL_NAME, SAMPLE_DIR + SPEECH_FEMALE_MODEL_NAME);
-        }
+//        File file = new File(SAMPLE_DIR);
+//        if (!file.exists()) {
+//            file.mkdirs();
+//        }
+//        File textModelFile = new File(SAMPLE_DIR + TEXT_MODEL_NAME);
+//        if (!textModelFile.exists()) {
+//            copyAssetsFile2SDCard(context, TEXT_MODEL_NAME, SAMPLE_DIR + TEXT_MODEL_NAME);
+//        }
+//        File speechModelFile = new File(SAMPLE_DIR + SPEECH_FEMALE_MODEL_NAME);
+//        if (!speechModelFile.exists()) {
+//            copyAssetsFile2SDCard(context, SPEECH_FEMALE_MODEL_NAME, SAMPLE_DIR + SPEECH_FEMALE_MODEL_NAME);
+//        }
         // 获取语音合成对象实例
         mSpeechSynthesizer = SpeechSynthesizer.getInstance();
         // 设置context
@@ -85,7 +85,24 @@ public class TTSUtils implements SpeechSynthesizerListener {
         // 纯离线sdk这个参数必填；离在线sdk没有此参数        // 初始化tts
         mSpeechSynthesizer.setParam(SpeechSynthesizer.PARAM_AUTH_SN, SN);
 
+        OfflineResource offlineResource = createOfflineResource(context,OfflineResource.VOICE_FEMALE);
+        // 声学模型文件路径 (离线引擎使用), 请确认下面两个文件存在
+        mSpeechSynthesizer.setParam(SpeechSynthesizer.PARAM_TTS_TEXT_MODEL_FILE, offlineResource.getTextFilename());
+        mSpeechSynthesizer.setParam(SpeechSynthesizer.PARAM_TTS_SPEECH_MODEL_FILE, offlineResource.getModelFilename());
+
         mSpeechSynthesizer.initTts(TtsMode.OFFLINE);
+    }
+
+    protected OfflineResource createOfflineResource(Context context,String voiceType) {
+        OfflineResource offlineResource = null;
+        try {
+            offlineResource = new OfflineResource(context, voiceType);
+        } catch (IOException e) {
+            // IO 错误自行处理
+            e.printStackTrace();
+            Log.d(TAG,"【error】:copy files from assets failed." + e.getMessage());
+        }
+        return offlineResource;
     }
 
     //需要合成的msg长度不能超过1024个GBK字节。

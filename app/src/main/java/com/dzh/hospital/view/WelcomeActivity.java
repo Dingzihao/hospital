@@ -49,7 +49,6 @@ public class WelcomeActivity extends AppCompatActivity {
                     finish();
                 });
         mDisposable.add(disposable);
-        initPermission();
     }
 
     private void initPermission() {
