@@ -45,18 +45,6 @@ public class TTSUtils implements SpeechSynthesizerListener {
     }
 
     public void init(Context context) {
-//        File file = new File(SAMPLE_DIR);
-//        if (!file.exists()) {
-//            file.mkdirs();
-//        }
-//        File textModelFile = new File(SAMPLE_DIR + TEXT_MODEL_NAME);
-//        if (!textModelFile.exists()) {
-//            copyAssetsFile2SDCard(context, TEXT_MODEL_NAME, SAMPLE_DIR + TEXT_MODEL_NAME);
-//        }
-//        File speechModelFile = new File(SAMPLE_DIR + SPEECH_FEMALE_MODEL_NAME);
-//        if (!speechModelFile.exists()) {
-//            copyAssetsFile2SDCard(context, SPEECH_FEMALE_MODEL_NAME, SAMPLE_DIR + SPEECH_FEMALE_MODEL_NAME);
-//        }
         // 获取语音合成对象实例
         mSpeechSynthesizer = SpeechSynthesizer.getInstance();
         // 设置context
@@ -165,22 +153,5 @@ public class TTSUtils implements SpeechSynthesizerListener {
     @Override
     public void onError(String s, SpeechError speechError) {
         // 监听到出错，在此添加相关操作
-    }
-
-    public static void copyAssetsFile2SDCard(Context context, String fileName, String path) {
-        try {
-            InputStream is = context.getAssets().open(fileName);
-            FileOutputStream fos = new FileOutputStream(new File(path));
-            byte[] buffer = new byte[1024];
-            int byteCount = 0;
-            while ((byteCount = is.read(buffer)) != -1) {// 循环从输入流读取buffer字节
-                fos.write(buffer, 0, byteCount);// 将读取的输入流写入到输出流
-            }
-            fos.flush();// 刷新缓冲区
-            is.close();
-            fos.close();
-        } catch (IOException e) {
-            Log.e(TAG, "copyAssetsFile2SDCard: " + e.toString());
-        }
     }
 }
