@@ -1,7 +1,6 @@
 package com.dzh.hospital.view;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.Build;
@@ -22,19 +21,14 @@ import androidx.databinding.DataBindingUtil;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.blankj.utilcode.util.DeviceUtils;
 import com.blankj.utilcode.util.NetworkUtils;
-import com.blankj.utilcode.util.PermissionUtils;
 import com.dzh.hospital.R;
 import com.dzh.hospital.databinding.ActivityMainBinding;
 import com.dzh.hospital.util.ChineseToSpeech;
 import com.dzh.hospital.util.TTSUtils;
-import com.tbruyelle.rxpermissions2.Permission;
-import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
-import io.reactivex.functions.Consumer;
 
 /**
  * @author 丁子豪
@@ -102,8 +96,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void setMacAndIp(String macAddress, String ip) {
-        Log.d(TAG, "MAC:" + macAddress);
-        Log.d(TAG, "IP:" + ip);
+        Log.d(TAG, "MAC:" + macAddress+"          IP:" + ip);
         mDataBinding.webView.evaluateJavascript("javascript:dealWithData(" + macAddress + "," + ip + ")", value -> {
         });
     }
@@ -116,6 +109,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        TTSUtils.getInstance().release();
         if (null != mSpeech) {
             mSpeech.destroy();
         }
