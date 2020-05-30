@@ -1,12 +1,17 @@
 package com.dzh.hospital.view;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.dzh.hospital.R;
 
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
@@ -22,6 +27,15 @@ import io.reactivex.schedulers.Schedulers;
  */
 public class WelcomeActivity extends AppCompatActivity {
     private final CompositeDisposable mDisposable = new CompositeDisposable();
+    String[] permissions = {
+            Manifest.permission.INTERNET,
+            Manifest.permission.ACCESS_NETWORK_STATE,
+            Manifest.permission.MODIFY_AUDIO_SETTINGS,
+            Manifest.permission.WRITE_SETTINGS,
+            Manifest.permission.ACCESS_WIFI_STATE,
+            Manifest.permission.CHANGE_WIFI_STATE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +49,22 @@ public class WelcomeActivity extends AppCompatActivity {
                     finish();
                 });
         mDisposable.add(disposable);
+        initPermission();
+    }
+
+    private void initPermission() {
+        ArrayList<String> toApplyList = new ArrayList<>();
+        for (String perm : permissions) {
+            if (PackageManager.PERMISSION_GRANTED != ContextCompat.checkSelfPermission(this, perm)) {
+                toApplyList.add(perm);
+                // 进入到这里代表没有权限.
+            }
+        }
+        String[] tmpList = new String[toApplyList.size()];
+        if (!toApplyList.isEmpty()) {
+            ActivityCompat.requestPermissions(this, toApplyList.toArray(tmpList), 123);
+        }
+
     }
 
     @Override

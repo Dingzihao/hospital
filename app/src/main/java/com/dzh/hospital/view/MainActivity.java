@@ -17,6 +17,7 @@ import com.blankj.utilcode.util.NetworkUtils;
 import com.dzh.hospital.R;
 import com.dzh.hospital.databinding.ActivityMainBinding;
 import com.dzh.hospital.util.ChineseToSpeech;
+import com.dzh.hospital.util.TTSUtils;
 
 /**
  * @author 丁子豪
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         mDataBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         mDataBinding.setHandler(this);
+        TTSUtils.getInstance().init(this);
         initView();
     }
 
@@ -84,7 +86,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void speak() {
-        mSpeech.speech("请125号丁春秋到五诊区12诊室就诊");
+        TTSUtils.getInstance().speak("请125号丁春秋到五诊区12诊室就诊");
+//        mSpeech.speech("请125号丁春秋到五诊区12诊室就诊");
     }
 
     @Override
