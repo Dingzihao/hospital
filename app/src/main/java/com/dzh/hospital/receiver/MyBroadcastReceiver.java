@@ -10,7 +10,7 @@ import com.dzh.hospital.view.MainActivity;
 /**
  * @author 丁子豪
  * @desc
- * @date on 2019/7/8 11:06.
+ * @date on 2020/5/28 15:10.
  */
 public class MyBroadcastReceiver extends BroadcastReceiver {
 

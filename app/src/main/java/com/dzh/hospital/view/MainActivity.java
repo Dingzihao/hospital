@@ -23,12 +23,16 @@ import com.blankj.utilcode.util.DeviceUtils;
 import com.blankj.utilcode.util.NetworkUtils;
 import com.dzh.hospital.R;
 import com.dzh.hospital.databinding.ActivityMainBinding;
-import com.dzh.hospital.util.ChineseToSpeech;
 import com.dzh.hospital.util.TTSUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
+
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 
 /**
  * @author 丁子豪
@@ -39,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     private static final int PERMISSIONS_CODE = 123;
     private ActivityMainBinding mDataBinding;
-    ChineseToSpeech mSpeech;
     String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE,};
 
     @Override
@@ -56,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        mSpeech = new ChineseToSpeech(this);
         String mac = DeviceUtils.getMacAddress();
         String ipAddress = NetworkUtils.getIPAddress(true);
 
@@ -92,6 +94,11 @@ public class MainActivity extends AppCompatActivity {
         mDataBinding.webView.addJavascriptInterface(new DecoObject(), "android");
         mDataBinding.webView.loadUrl("https://www.baidu.com");
 
+        Disposable disposable = Observable.interval(5,10, TimeUnit.SECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(aLong -> {
+                    speak();
+                });
     }
 
 
@@ -102,24 +109,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void speak() {
-        TTSUtils.getInstance().speak("请125号丁春秋到五诊区12诊室就诊");
-//        mSpeech.speech("请125号丁春秋到五诊区12诊室就诊");
+        TTSUtils.getInstance().speak("1");
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         TTSUtils.getInstance().release();
-        if (null != mSpeech) {
-            mSpeech.destroy();
-        }
     }
 
     public class DecoObject {
         @JavascriptInterface
         public void speak(String data) {
             TTSUtils.getInstance().speak(data);
-//            mSpeech.speech(data);
         }
     }
 

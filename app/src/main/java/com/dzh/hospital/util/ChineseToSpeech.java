@@ -9,7 +9,7 @@ import java.util.Locale;
 
 /**
  * @author 丁子豪
- * @desc 文字转语音
+ * @desc 系統文字转语音
  * @data on 2020/5/28 15:11
  */
 public class ChineseToSpeech {

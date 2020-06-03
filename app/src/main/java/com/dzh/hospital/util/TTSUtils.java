@@ -1,7 +1,6 @@
 package com.dzh.hospital.util;
 
 import android.content.Context;
-import android.os.Environment;
 import android.util.Log;
 
 import com.baidu.tts.client.SpeechError;
@@ -17,8 +16,8 @@ public class TTSUtils implements SpeechSynthesizerListener {
     private static volatile TTSUtils instance = null;
     private SpeechSynthesizer mSpeechSynthesizer;
 
-    private static final String SAMPLE_DIR = Environment.getExternalStorageDirectory().getAbsolutePath() + "/baiduTTS/";
-//    private static final String SAMPLE_DIR = "/sdcard/baiduTTS/";
+//    private static final String SAMPLE_DIR = Environment.getExternalStorageDirectory().getAbsolutePath() + "/baiduTTS/";
+    private static final String SAMPLE_DIR = "/sdcard/baiduTTS/";
     private static final String SPEECH_FEMALE_MODEL_NAME = "bd_etts_common_speech_f7_mand_eng_high_am-mgc_v3.6.0_20190117.dat";
     private static final String TEXT_MODEL_NAME = "bd_etts_common_text_txt_all_mand_eng_middle_big_v3.4.2_20190710.dat";
 
@@ -26,6 +25,7 @@ public class TTSUtils implements SpeechSynthesizerListener {
     private static final String SECRETKEY = "KjBw0rCvT9apX4Xac4E3VmYkoDOgvgP2";
     private static final String APPID = "20097709";
     private static final String SN = "97a73e88-737af206-04e4-00f4-247a9-00";
+//    private static final String SN = "7f2b6d25-65268198-04e4-00c3-247aa-00";
 
     private TTSUtils() {
     }
@@ -62,7 +62,7 @@ public class TTSUtils implements SpeechSynthesizerListener {
         // 设置在线发声音人： 0 普通女声（默认） 1 普通男声  3 情感男声<度逍遥> 4 情感儿童声<度丫丫>
         mSpeechSynthesizer.setParam(SpeechSynthesizer.PARAM_SPEAKER, "0");
         // 设置合成的音量，0-15 ，默认 5
-        mSpeechSynthesizer.setParam(SpeechSynthesizer.PARAM_VOLUME, "9");
+        mSpeechSynthesizer.setParam(SpeechSynthesizer.PARAM_VOLUME, "5");
         // 设置合成的语速，0-15 ，默认 5
         mSpeechSynthesizer.setParam(SpeechSynthesizer.PARAM_SPEED, "5");
         // 设置合成的语调，0-15 ，默认 5
