@@ -6,8 +6,10 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceError;
@@ -15,18 +17,19 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
-import androidx.databinding.ObservableField;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.blankj.utilcode.util.DeviceUtils;
 import com.blankj.utilcode.util.NetworkUtils;
-import com.blankj.utilcode.util.ToastUtils;
 import com.dzh.hospital.R;
 import com.dzh.hospital.databinding.ActivityMainBinding;
 import com.dzh.hospital.util.TTSUtils;
@@ -34,13 +37,9 @@ import com.dzh.hospital.util.TTSUtils;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 import cc.cloudist.acplibrary.ACProgressConstant;
 import cc.cloudist.acplibrary.ACProgressFlower;
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
 
 /**
  * @author 丁子豪
@@ -53,9 +52,11 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding mDataBinding;
     String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE,};
     private boolean isError = false;
-    public ObservableField<String> baseIp = new ObservableField<>("https://www.baidu.com");
-    public ObservableField<String> baseUrl = new ObservableField<>("");
+    private String baseIp = "";
+    private String baseUrl = "/pages/sm/sm_call_screen_reg.html";
     private ACProgressFlower dialog;
+    String mac = "";
+    String ipAddress = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,8 +72,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        String mac = DeviceUtils.getMacAddress();
-        String ipAddress = NetworkUtils.getIPAddress(true);
+        mac = DeviceUtils.getMacAddress();
+        ipAddress = NetworkUtils.getIPAddress(true);
 
         mDataBinding.webView.getSettings().setJavaScriptEnabled(true);
         //不显示垂直滚动条
@@ -117,37 +118,48 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         mDataBinding.webView.addJavascriptInterface(new DecoObject(), "android");
-        mDataBinding.webView.loadUrl("file:///android_asset/demo/sm_call_screen_outpatdept_main.html?mac="+mac +"&ip="+ipAddress);
-
-//        Disposable disposable = Observable.interval(5, 10, TimeUnit.SECONDS)
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(aLong -> {
-//                    speak();
-//                });
+        mDataBinding.webView.loadUrl("file:///android_asset/demo/sm_call_screen_outpatdept_main.html?mac=" + mac + "&ip=" + ipAddress);
     }
 
 
     private void setMacAndIp(String macAddress, String ip) {
-        Log.d(TAG, "MAC:" + macAddress + "          IP:" + ip);
         mDataBinding.webView.evaluateJavascript("javascript:setMacAndIp(" + macAddress + "," + ip + ")", value -> {
         });
     }
 
-    public void speak() {
-        TTSUtils.getInstance().speak("123");
-    }
-
     public void reLoad() {
-        mDataBinding.webView.loadUrl(baseIp.get() + baseUrl.get());
-        mDataBinding.settingPage.setVisibility(View.GONE);
+        String parm = "?mac=" + mac + "&ip=" + ipAddress;
+        mDataBinding.webView.loadUrl(baseIp + baseUrl + parm);
     }
 
     public void setting() {
-        mDataBinding.settingPage.setVisibility(View.VISIBLE);
-    }
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.DialogStyle);
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View v = inflater.inflate(R.layout.dialog_setting, null);
 
-    public void cancel() {
-        mDataBinding.settingPage.setVisibility(View.GONE);
+        TextView cancel = v.findViewById(R.id.cancel);
+        TextView confirm = v.findViewById(R.id.confirm);
+        EditText et_ip = v.findViewById(R.id.tv_ip);
+        EditText et_url = v.findViewById(R.id.tv_url);
+        et_ip.setText(baseIp);
+        et_url.setText(baseUrl);
+        final AlertDialog dialog = builder.create();
+        dialog.setView(v);
+        dialog.show();
+        dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+        dialog.getWindow().setGravity(Gravity.CENTER);
+        dialog.setCanceledOnTouchOutside(false);
+
+        cancel.setOnClickListener(view -> {
+            dialog.dismiss();
+        });
+
+        confirm.setOnClickListener(view -> {
+            baseIp = et_ip.getText().toString();
+            baseUrl = et_url.getText().toString();
+            reLoad();
+            dialog.dismiss();
+        });
     }
 
     @Override

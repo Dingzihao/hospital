@@ -11,4 +11,12 @@
     <style name="AppTheme.Main">
         <item name="android:windowTranslucentStatus" tools:ignore="NewApi">true</item>
     </style>
+
+    <style name="DialogStyle" parent="@style/Theme.AppCompat.Dialog.Alert">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!--宽度占屏幕比例-->
+        <item name="android:windowMinWidthMajor">30%</item>
+        <item name="android:windowMinWidthMinor">30%</item>
+    </style>
 </resources>
