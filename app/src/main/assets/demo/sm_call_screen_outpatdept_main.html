@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en" style="height: 100%;">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>叫号显示屏(门诊)</title>
+  <link rel="stylesheet" href="./sm_call_screen_outpatdept.css">
+</head>
+
+<body style="height: 100%;margin: 0;">
+
+  <script type="text/javascript">
+
+
+    window.onload = function () {
+
+      ///////取入参使用
+      let tempPropsValue = [];
+      let tempProp;
+      let temp = decodeURI(window.location.search);
+      console.log("0909");
+      console.log(temp);
+      let tempArr1 = [];
+      tempArr1 = temp.split("?");
+
+      tempProp = tempArr1[1].split("&");
+
+      tempPropsValue = tempProp;
+
+      console.log(tempProp);
+
+      let allArr = [];
+
+      tempPropsValue.forEach((item, index, array) => {
+        //执行代码
+        let tempArr = item.split("=");
+        let tempOrderVisitid = tempArr[0];
+        let tempDeptId = tempArr[1];
+        console.log("传入的入参");
+        console.log(tempOrderVisitid);
+        console.log(tempDeptId);
+
+        allArr.push(tempDeptId);
+      })
+
+      console.log(allArr);
+
+      document.getElementById("MAC").innerHTML = allArr[0];
+      document.getElementById("IP").innerHTML = allArr[1];
+    }
+
+
+    function MACIp() {
+      document.getElementById("MAC").innerHTML = allArr[0];
+      document.getElementById("IP").innerHTML = allArr[1];
+    }
+
+    function CallAndroid() {
+      android.speak("请15号张三到内科检查");
+    }
+
+    ////////
+  </script>
+
+  <div class="sm_call_screen_outpatdept_main">
+
+    <div class="sm_call_screen_outpatdept_top">
+      <div class="sm_call_screen_outpatdept_top_frist">
+        <!-- logo -->
+        <!-- <div class="sm_call_screen_outpatdept_top_frist_unit">
+      </div> -->
+        <!-- 文字 -->
+        <div class="sm_call_screen_outpatdept_top_frist_logo">
+
+        </div>
+        <div style="width:27vw;height: 100%;display: flex;align-items: center">
+          <span style="font-size:4.5vh;font-weight: 1000;font-family: SimSun;margin-left: 1vw;">XXXX人民和医院</span>
+        </div>
+        <div class="sm_call_screen_outpatdept_top_frist_dept">
+          <div style="width:22vw;display: flex;justify-content: center;align-items: center">
+            <span class="sm_call_screen_outpatdept_font_size_4vh"><b>{{ShowTitle}}</b></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sm_call_screen_outpatdept_top_second">
+        <div style="width:24vw;text-align: center;line-height: 10vh;">
+          <span class="sm_call_screen_outpatdept_font_size_4vh" style="color: white">2020-06-05 星期五</span>
+        </div>
+      </div>
+
+      <div class="sm_call_screen_outpatdept_top_third">
+        <div class="sm_call_screen_outpatdept_top_third_container">
+          <div class="sm_call_screen_outpatdept_top_third_container_left_bg">
+
+          </div>
+          <div style="width:8vw;height: 100%;line-height: 10vh">
+            <span class="sm_call_screen_outpatdept_font_size_4vh" style="color: white">16:10</span>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <div class="sm_call_screen_outpatdept_middle">
+      <div class="sm_call_screen_outpatdept_middle_waiting_list_main">
+        <div class="sm_call_screen_outpatdept_middle_waiting_list_main_top">
+          <div class="sm_call_screen_outpatdept_font_size_6vh " style="flex:2;display: flex;justify-content: center;align-items: center">
+            <b>诊&nbsp;室</b>
+          </div>
+          <!-- background: rgb(88, 92, 228);height: 10vh; -->
+          <div class="sm_call_screen_outpatdept_font_size_6vh" style="flex:1;display: flex;justify-content: center;align-items: center;margin-right: 2vw;
+            margin-left: 1vw;">
+            <b>医&nbsp;生</b>
+          </div>
+          <div class="sm_call_screen_outpatdept_font_size_6vh" style="flex:4;display: flex;justify-content: center;align-items: center">
+            <b>等&nbsp;待&nbsp;就&nbsp;诊</b>
+          </div>
+        </div>
+
+        <div class="sm_call_screen_outpatdept_middle_waiting_list_main_content sm_call_screen_outpatdept_font_color">
+          <div class="sm_call_screen_outpatdept_middle_waiting_list_main_content_size" style="margin-right: 1vw;flex: 2">
+            <b class="sm_call_screen_outpatdept_font_size_5vh  sm_call_screen_outpatdept_flip_font">
+              <!-- <button onclick="MACIp()">获取macAip</button> -->
+              {{allPat[1].client_name}}
+            </b>
+          </div>
+          <div class="sm_call_screen_outpatdept_middle_waiting_list_main_content_size" style="margin-right: 1vw;flex: 1">
+            <b class="sm_call_screen_outpatdept_font_size_5vh sm_call_screen_outpatdept_flip_font">医生甲</b>
+          </div>
+          <div class="sm_call_screen_outpatdept_middle_waiting_list_main_content_size" style="margin-right: 1vw;flex: 2">
+            <b class="sm_call_screen_outpatdept_font_size_5vh sm_call_screen_outpatdept_flip_font">
+              <button onclick="CallAndroid()">语音包测试</button>
+            </b>
+          </div>
+          <div class="sm_call_screen_outpatdept_middle_waiting_list_main_content_size" style="flex: 2">
+            <b class="sm_call_screen_outpatdept_font_size_5vh sm_call_screen_outpatdept_flip_font">
+              请15号张三到内科检查
+            </b>
+          </div>
+        </div>
+
+        <div class="sm_call_screen_outpatdept_middle_waiting_list_main_content sm_call_screen_outpatdept_font_color">
+          <div class="sm_call_screen_outpatdept_middle_waiting_list_main_content_size" style="margin-right: 1vw;flex: 2">
+            <b class="sm_call_screen_outpatdept_font_size_5vh sm_call_screen_outpatdept_flip_font">{{allPat[1].client_name}}</b>
+          </div>
+          <!-- <div class="sm_call_screen_outpatdept_middle_waiting_list_main_content_size" style="margin-right: 1vw">
+          <b class="sm_call_screen_outpatdept_font_size_4vh" >{{allPat[1].name2}}</b>
+        </div> -->
+          <div class="sm_call_screen_outpatdept_middle_waiting_list_main_content_size" style="margin-right: 1vw;flex: 1">
+            <b class="sm_call_screen_outpatdept_font_size_5vh sm_call_screen_outpatdept_flip_font">医生乙</b>
+          </div>
+          <div class="sm_call_screen_outpatdept_middle_waiting_list_main_content_size" style="margin-right: 1vw;flex: 2">
+            <b class="sm_call_screen_outpatdept_font_size_5vh sm_call_screen_outpatdept_flip_font">{{allPat[1].pat_name_1}}</b>
+          </div>
+          <div class="sm_call_screen_outpatdept_middle_waiting_list_main_content_size" style="flex: 2">
+            <b class="sm_call_screen_outpatdept_font_size_5vh sm_call_screen_outpatdept_flip_font">{{allPat[1].pat_name_2}}</b>
+          </div>
+        </div>
+
+        <div class="sm_call_screen_outpatdept_middle_waiting_list_main_content sm_call_screen_outpatdept_font_color">
+          <div class="sm_call_screen_outpatdept_middle_waiting_list_main_content_size" style="margin-right: 1vw;flex: 2">
+            <b class="sm_call_screen_outpatdept_font_size_5vh sm_call_screen_outpatdept_flip_font">{{allPat[2].client_name}}</b>
+          </div>
+          <!-- <div class="sm_call_screen_outpatdept_middle_waiting_list_main_content_size" style="margin-right: 1vw">
+          <b class="sm_call_screen_outpatdept_font_size_4vh" >{{allPat[2].name2}}</b>
+        </div> -->
+          <div class="sm_call_screen_outpatdept_middle_waiting_list_main_content_size" style="margin-right: 1vw;flex: 1">
+            <b class="sm_call_screen_outpatdept_font_size_5vh sm_call_screen_outpatdept_flip_font">医生丙</b>
+          </div>
+          <div class="sm_call_screen_outpatdept_middle_waiting_list_main_content_size" style="margin-right: 1vw;flex: 2">
+            <b class="sm_call_screen_outpatdept_font_size_5vh sm_call_screen_outpatdept_flip_font">{{allPat[2].pat_name_1}}</b>
+          </div>
+          <div class="sm_call_screen_outpatdept_middle_waiting_list_main_content_size" style="flex: 2">
+            <b class="sm_call_screen_outpatdept_font_size_5vh sm_call_screen_outpatdept_flip_font">{{allPat[2].pat_name_2}}</b>
+          </div>
+        </div>
+
+        <div class="sm_call_screen_outpatdept_middle_waiting_list_main_content sm_call_screen_outpatdept_font_color">
+          <div class="sm_call_screen_outpatdept_middle_waiting_list_main_content_size" style="margin-right: 1vw;flex: 2">
+            <b class="sm_call_screen_outpatdept_font_size_5vh sm_call_screen_outpatdept_flip_font">{{allPat[3].client_name}}</b>
+          </div>
+          <!-- <div class="sm_call_screen_outpatdept_middle_waiting_list_main_content_size" style="margin-right: 1vw">
+          <b class="sm_call_screen_outpatdept_font_size_4vh" >{{allPat[3].name2}}</b>
+        </div> -->
+          <div class="sm_call_screen_outpatdept_middle_waiting_list_main_content_size" style="margin-right: 1vw;flex: 1">
+            <b class="sm_call_screen_outpatdept_font_size_5vh sm_call_screen_outpatdept_flip_font">医生丁</b>
+          </div>
+          <div class="sm_call_screen_outpatdept_middle_waiting_list_main_content_size" style="margin-right: 1vw;flex: 2">
+            <b class="sm_call_screen_outpatdept_font_size_5vh sm_call_screen_outpatdept_flip_font">{{allPat[3].pat_name_1}}</b>
+          </div>
+          <div class="sm_call_screen_outpatdept_middle_waiting_list_main_content_size" style="flex: 2">
+            <b class="sm_call_screen_outpatdept_font_size_5vh sm_call_screen_outpatdept_flip_font">{{allPat[3].pat_name_2}}</b>
+          </div>
+        </div>
+
+        <div class="sm_call_screen_outpatdept_middle_waiting_list_main_content sm_call_screen_outpatdept_font_color">
+          <div class="sm_call_screen_outpatdept_middle_waiting_list_main_content_size" style="margin-right: 1vw;flex: 2">
+            <b class="sm_call_screen_outpatdept_font_size_5vh sm_call_screen_outpatdept_flip_font">{{allPat[4].client_name}}</b>
+          </div>
+          <!-- <div class="sm_call_screen_outpatdept_middle_waiting_list_main_content_size" style="margin-right: 1vw">
+          <b class="sm_call_screen_outpatdept_font_size_4vh" >{{allPat[4].name2}}</b>
+        </div> -->
+          <div class="sm_call_screen_outpatdept_middle_waiting_list_main_content_size" style="margin-right: 1vw;flex: 1">
+            <b class="sm_call_screen_outpatdept_font_size_5vh sm_call_screen_outpatdept_flip_font">医生戊</b>
+          </div>
+          <div class="sm_call_screen_outpatdept_middle_waiting_list_main_content_size" style="margin-right: 1vw;flex: 2">
+            <b class="sm_call_screen_outpatdept_font_size_5vh sm_call_screen_outpatdept_flip_font">{{allPat[4].pat_name_1}}</b>
+          </div>
+          <div class="sm_call_screen_outpatdept_middle_waiting_list_main_content_size" style="flex: 2">
+            <b class="sm_call_screen_outpatdept_font_size_5vh sm_call_screen_outpatdept_flip_font">{{allPat[4].pat_name_2}}</b>
+          </div>
+        </div>
+
+        <div class="sm_call_screen_outpatdept_middle_waiting_list_main_bottom sm_call_screen_outpatdept_font_color">
+          <div class="sm_call_screen_outpatdept_middle_waiting_list_main_content_size" style="margin-right: 1vw;flex: 2">
+            <b class="sm_call_screen_outpatdept_font_size_5vh sm_call_screen_outpatdept_flip_font">allPat[5].client_name</b>
+          </div>
+          <!-- <div class="sm_call_screen_outpatdept_middle_waiting_list_main_content_size" style="margin-right: 1vw">
+          <b class="sm_call_screen_outpatdept_font_size_4vh" >{{allPat[5].name2}}</b>
+        </div> -->
+          <div class="sm_call_screen_outpatdept_middle_waiting_list_main_content_size" style="margin-right: 1vw;flex: 1">
+            <b class="sm_call_screen_outpatdept_font_size_5vh sm_call_screen_outpatdept_flip_font">医生己</b>
+          </div>
+          <div class="sm_call_screen_outpatdept_middle_waiting_list_main_content_size" style="margin-right: 1vw;flex: 2">
+            <b id="MAC" class="sm_call_screen_outpatdept_font_size_5vh sm_call_screen_outpatdept_flip_font">{{allPat[5].pat_name_1}}</b>
+          </div>
+          <div class="sm_call_screen_outpatdept_middle_waiting_list_main_content_size" style="flex: 2">
+            <b id="IP" class="sm_call_screen_outpatdept_font_size_5vh sm_call_screen_outpatdept_flip_font">{{allPat[5].pat_name_2}}</b>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="sm_call_screen_outpatdept_bottom" style="display: flex;justify-content: center;align-items: center">
+      <!-- <div style="margin: 10px 0px 20px 0px"> -->
+      <!-- 请未叫到号码的患者在候诊大厅耐心等待! -->
+      <span class="sm_call_screen_outpatdept_font_size_3vh"><b>{{Reminder}}</b></span>
+      <!-- <span style="cursor:pointer;font-size: 3vh;" @click="LeftRightFlipScreen">切换</span> -->
+      <!-- <button @click="LeftRightFlipScreen">切换</button> -->
+      <!-- </div> -->
+
+    </div>
+
+  </div>
+
+
+</body>
+
+</html>

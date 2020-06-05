@@ -117,13 +117,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         mDataBinding.webView.addJavascriptInterface(new DecoObject(), "android");
-        mDataBinding.webView.loadUrl("file:///android_asset/page/main.html");
+        mDataBinding.webView.loadUrl("file:///android_asset/demo/sm_call_screen_outpatdept_main.html?mac="+mac +"&ip="+ipAddress);
 
-        Disposable disposable = Observable.interval(5, 10, TimeUnit.SECONDS)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(aLong -> {
-                    speak();
-                });
+//        Disposable disposable = Observable.interval(5, 10, TimeUnit.SECONDS)
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(aLong -> {
+//                    speak();
+//                });
     }
 
 

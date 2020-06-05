@@ -1,0 +1,496 @@
+
+/* 屏幕最外层容器 */ 
+.sm_call_screen_outpatdept_main {
+   background: url(./img/call_screen_img/body_bg.jpg);
+   position: relative;
+   width:100%;
+   height: 100%;
+   display: flex;
+   flex-direction:column; /* 主轴为垂直方向，起点在上沿 */ 
+ }
+
+/* 上面头部容器 */    
+ .sm_call_screen_outpatdept_main .sm_call_screen_outpatdept_top{ 
+   height: 12vh;
+   line-height: 10vh;
+   background-image: url(./img/call_screen_img/top_bg.png);
+   background-size: contain;
+   display: flex;
+ }
+
+ .sm_call_screen_outpatdept_main .sm_call_screen_outpatdept_top .sm_call_screen_outpatdept_top_frist{
+   flex: 1;
+   display: flex;
+    align-items: center;
+ }
+
+ .sm_call_screen_outpatdept_main .sm_call_screen_outpatdept_top .sm_call_screen_outpatdept_top_frist_unit{
+   width:17vw;
+   height: 100%;
+   background: no-repeat;
+   background-image: url(./img/call_screen_img/logo1.png);
+   background-size: contain;
+   margin: 1vh 0px 0px 1vw
+ }
+
+ .sm_call_screen_outpatdept_main .sm_call_screen_outpatdept_top .sm_call_screen_outpatdept_top_frist_logo{
+  width: 5vh;
+  height: 5vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: no-repeat;
+  background-image: url(./img/call_screen_img/yh.png);
+  background-size: contain;
+  margin-left: 2vw;
+ }
+
+ .sm_call_screen_outpatdept_main .sm_call_screen_outpatdept_top .sm_call_screen_outpatdept_top_frist_dept{
+  width: 22vw;
+  height: 10vh;
+  background: linear-gradient(0deg,rgba(211,213,215,1),rgba(185,186,188,1),rgba(241,243,241,1));
+  border: 2px solid rgba(255,255,255,1);
+  border-radius: 1vh;
+  box-sizing: border-box;
+ }
+
+ .sm_call_screen_outpatdept_main .sm_call_screen_outpatdept_top .sm_call_screen_outpatdept_top_second{
+   float: right;
+   margin-right: 15vw;
+   width:24vw;
+  background: linear-gradient(to bottom, #000000 45%, #b9cad4 100%);
+  margin: 1vh 0px 1vh 2vw;
+  border-radius:1vh; 
+ }
+
+ .sm_call_screen_outpatdept_main .sm_call_screen_outpatdept_top .sm_call_screen_outpatdept_top_third{
+   float: right;
+   width:14vw;
+   background: linear-gradient(to bottom, #000000 45%, #b9cad4 100%);
+   margin: 1vh 1vw 1vh 2vw;
+   border-radius:1vh; 
+ }
+
+ .sm_call_screen_outpatdept_main .sm_call_screen_outpatdept_top .sm_call_screen_outpatdept_top_third_container{
+   width:15vw;
+   height: 100%;
+   text-align: center;
+   display: flex
+ }
+
+ .sm_call_screen_outpatdept_main .sm_call_screen_outpatdept_top .sm_call_screen_outpatdept_top_third_container_left_bg{
+   width:6vw;
+   height: 10vh;
+   background: no-repeat;
+   background-image: url(./img/call_screen_img/time_icon.png);
+   background-size: cover;
+ }
+
+ /* 中间容器 */  
+ .sm_call_screen_outpatdept_main .sm_call_screen_outpatdept_middle{
+   flex:1;
+   padding: 1vw;
+   overflow: hidden;
+   position: relative;
+ }
+
+ .sm_call_screen_outpatdept_main .sm_call_screen_outpatdept_middle .sm_call_screen_outpatdept_middle_waiting_list_main{
+   padding: 2vh 1vw;
+   display: flex;
+   flex-direction:column;
+   height: 100%;
+   background:rgba(0, 0, 0, 0.2);
+   border-top-left-radius:4vw;
+   border-top-right-radius:4vw;
+   position: absolute;
+    width: 98vw;
+    box-sizing: border-box;
+ }
+
+ .sm_call_screen_outpatdept_main .sm_call_screen_outpatdept_middle .sm_call_screen_outpatdept_middle_waiting_list_main_top{
+   text-align: center;
+   opacity:1;
+   width:100%;
+   height:10vh;
+   background:linear-gradient(0deg,rgba(231,233,228,1),rgba(248,247,245,1),rgba(201,200,196,1));
+   background-size: contain;
+   box-shadow:0px 0px 4px 0px rgba(35,24,21,0.38);
+   border-radius:3vw 3vw 0px 0px;
+   margin-bottom: 7px;
+   display: flex;
+   justify-content: center;
+   align-items: center
+ }
+
+ .sm_call_screen_outpatdept_main .sm_call_screen_outpatdept_middle .sm_call_screen_outpatdept_middle_waiting_list_main_content{
+   flex: 1;
+   display: flex;
+   flex-direction:row;
+   padding: 1vh 0
+ }
+
+ .sm_call_screen_outpatdept_main .sm_call_screen_outpatdept_middle .sm_call_screen_outpatdept_middle_waiting_list_main_bottom{
+   flex: 1;
+   display: flex;
+   flex-direction:row;
+   padding: 1vh 0 2vh 0
+ }
+
+ .sm_call_screen_outpatdept_main .sm_call_screen_outpatdept_middle .sm_call_screen_outpatdept_middle_waiting_list_main_content_size{
+   background:rgb(142, 194, 215);
+   display: flex;
+   justify-content: center;
+   align-items: center;
+  /* 超出部分不显示 */  
+   overflow: hidden;
+   white-space: nowrap;
+ }
+
+ .sm_call_screen_outpatdept_main .sm_call_screen_outpatdept_middle .sm_call_screen_outpatdept_middle_attending_treatment_main{
+   padding: 2vh 1vw;
+   display: flex;
+   flex-direction:column;
+   background:rgba(0, 0, 0, 0.2);
+   border-top-left-radius:4vw;
+   border-top-right-radius:4vw;
+   position: absolute;
+    left: 1vw;
+    right: 1vw;
+    top: 2vh;
+    bottom: 2vh;
+ }
+
+ .sm_call_screen_outpatdept_main .sm_call_screen_outpatdept_middle .sm_call_screen_outpatdept_middle_attending_treatment_main_bg{
+   display: flex;
+   flex-direction:column;
+   height: 100%;
+   background:rgba(0, 0, 0, 0.2);
+   border-top-left-radius:4vw;
+   border-top-right-radius:4vw;
+ }
+
+ .sm_call_screen_outpatdept_main .sm_call_screen_outpatdept_middle .sm_call_screen_outpatdept_middle_attending_treatment_main_top{
+   text-align: center;
+   opacity:1;
+   width:100%;
+   height:10vh;
+   background:linear-gradient(0deg,rgba(231,233,228,1),rgba(248,247,245,1),rgba(201,200,196,1));
+   box-shadow:0px 0px 4px 0px rgba(35,24,21,0.38);
+   border-radius:3vw 3vw 0px 0px;
+ }
+
+ .sm_call_screen_outpatdept_main .sm_call_screen_outpatdept_middle .sm_call_screen_outpatdept_middle_attending_treatment_main_middle{
+   padding:2vh 0vw;
+   display: flex;
+   flex-direction:row
+ }
+
+ .sm_call_screen_outpatdept_main .sm_call_screen_outpatdept_middle .sm_call_screen_outpatdept_middle_attending_treatment_main_bottom{
+   flex: 1;
+   display: flex;
+   flex-direction:row;
+}
+
+.sm_call_screen_outpatdept_main .sm_call_screen_outpatdept_middle_attending_treatment_main_middle_left{
+   width:30vw;
+   height:20vh;
+   background:linear-gradient(0deg,rgba(231,233,228,1),rgba(248,247,245,1),rgba(201,200,196,1));
+   box-shadow:0px 0px 4px 0px rgba(35,24,21,0.38);
+   border-radius:2vw 0px 0px 2vw;
+   text-align: center;
+}
+
+.sm_call_screen_outpatdept_main .sm_call_screen_outpatdept_middle_attending_treatment_main_middle_right{
+   flex: 1;
+   height:20vh;
+   background:rgb(142, 194, 215);
+   text-align:center;
+   margin-left: 1vw
+}
+
+ /* 底部容器 */  
+ .sm_call_screen_outpatdept_main .sm_call_screen_outpatdept_bottom{
+  height:4vh;
+   text-align: center;
+   width: 100%;
+   background: url(./img/call_screen_img/foot_bg.png);
+ }
+
+ /*字体大小*/
+ .sm_call_screen_outpatdept_main .sm_call_screen_outpatdept_font_size_3vh{
+   font-size:3vh;
+   font-family: SimSun;
+ }
+
+ .sm_call_screen_outpatdept_main .sm_call_screen_outpatdept_font_size_4vh{
+   font-size:4vh;
+   font-family: SimSun;
+ }
+
+ .sm_call_screen_outpatdept_main .sm_call_screen_outpatdept_font_size_5vh{
+  font-size:5vh;
+  font-family: SimSun;
+}
+
+ .sm_call_screen_outpatdept_main .sm_call_screen_outpatdept_font_size_6vh{
+   font-size:6vh;
+   font-family: SimSun;
+ }
+
+ .sm_call_screen_outpatdept_main .sm_call_screen_outpatdept_font_size_7vh{
+   font-size:7vh;
+   font-family: SimSun;
+ }
+
+ /* 字体颜色 */  
+ .sm_call_screen_outpatdept_font_color{
+  color:#fff;
+ }
+ 
+ /* 药房显示屏样式 */
+ 
+/* 屏幕最外层容器 */ 
+.sm_call_screen_drug_main {
+  background: url(./img/call_screen_img/body_bg.jpg);
+  position: relative;
+  width:100%;
+  height: 100%;
+  display: flex;
+  flex-direction:column; /* 主轴为垂直方向，起点在上沿 */ 
+}
+
+/* 上面头部容器 */  
+.sm_call_screen_drug_main .sm_call_screen_drug_top{
+  height: 12vh;
+  line-height: 10vh;
+  background-image: url(./img/call_screen_img/top_bg.png);
+  background-size: contain;
+  display: flex;
+}
+
+.sm_call_screen_drug_main .sm_call_screen_drug_top .sm_call_screen_drug_top_frist{
+  flex: 1;
+  display: flex;
+   align-items: center;
+}
+
+.sm_call_screen_drug_main .sm_call_screen_drug_top .sm_call_screen_drug_top_frist_unit{
+  width:17vw;
+  height: 100%;
+  background: no-repeat;
+  background-image: url(./img/call_screen_img/logo1.png);
+  background-size: contain;
+  margin: 1vh 0px 0px 1vw
+}
+
+.sm_call_screen_drug_main .sm_call_screen_drug_top .sm_call_screen_drug_top_frist_logo{
+ width: 5vh;
+ height: 5vh;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ background: no-repeat;
+ background-image: url(./img/call_screen_img/yh.png);
+ background-size: contain;
+ margin-left: 2vw;
+}
+
+.sm_call_screen_drug_main .sm_call_screen_drug_top .sm_call_screen_drug_top_frist_dept{
+ width: 22vw;
+ height: 10vh;
+ background: linear-gradient(0deg,rgba(211,213,215,1),rgba(185,186,188,1),rgba(241,243,241,1));
+ border: 2px solid rgba(255,255,255,1);
+ border-radius: 1vh;
+ box-sizing: border-box;
+}
+
+.sm_call_screen_drug_main .sm_call_screen_drug_top .sm_call_screen_drug_top_second{
+  float: right;
+  margin-right: 15vw;
+  width:24vw;
+ background: linear-gradient(to bottom, #000000 45%, #b9cad4 100%);
+ margin: 1vh 0px 1vh 2vw;
+ border-radius:1vh; 
+}
+
+.sm_call_screen_drug_main .sm_call_screen_drug_top .sm_call_screen_drug_top_third{
+  float: right;
+  width:14vw;
+  background: linear-gradient(to bottom, #000000 45%, #b9cad4 100%);
+  margin: 1vh 1vw 1vh 2vw;
+  border-radius:1vh; 
+}
+
+.sm_call_screen_drug_main .sm_call_screen_drug_top .sm_call_screen_drug_top_third_container{
+  width:15vw;
+  height: 100%;
+  text-align: center;
+  display: flex
+}
+
+.sm_call_screen_drug_main .sm_call_screen_drug_top .sm_call_screen_drug_top_third_container_left_bg{
+  width:6vw;
+  height: 10vh;
+  background: no-repeat;
+  background-image: url(./img/call_screen_img/time_icon.png);
+  background-size: cover;
+}
+
+/* 中间容器 */  
+.sm_call_screen_drug_main .sm_call_screen_drug_middle{
+  flex:1;
+  padding: 1vw;
+  overflow: hidden;
+  position: relative;
+}
+
+.sm_call_screen_drug_main .sm_call_screen_drug_middle .sm_call_screen_drug_middle_waiting_list_main{
+  padding: 2vh 1vw;
+  display: flex;
+  flex-direction:column;
+  height: 100%;
+  background:rgba(0, 0, 0, 0.2);
+  border-top-left-radius:4vw;
+  border-top-right-radius:4vw;
+  position: absolute;
+   width: 98vw;
+   box-sizing: border-box;
+}
+
+.sm_call_screen_drug_main .sm_call_screen_drug_middle .sm_call_screen_drug_middle_waiting_list_main_top{
+  text-align: center;
+  opacity:1;
+  width:100%;
+  height:10vh;
+  background:linear-gradient(0deg,rgba(231,233,228,1),rgba(248,247,245,1),rgba(201,200,196,1));
+  background-size: contain;
+  box-shadow:0px 0px 4px 0px rgba(35,24,21,0.38);
+  border-radius:3vw 3vw 0px 0px;
+  margin-bottom: 7px;
+  display: flex;
+  justify-content: center;
+  align-items: center
+}
+
+.sm_call_screen_drug_main .sm_call_screen_drug_middle .sm_call_screen_drug_middle_waiting_list_main_content{
+  flex: 1;
+  display: flex;
+  flex-direction:row;
+  padding: 1vh 0
+}
+
+.sm_call_screen_drug_main .sm_call_screen_drug_middle .sm_call_screen_drug_middle_waiting_list_main_bottom{
+  flex: 1;
+  display: flex;
+  flex-direction:row;
+  padding: 1vh 0 2vh 0
+}
+
+.sm_call_screen_drug_main .sm_call_screen_drug_middle .sm_call_screen_drug_middle_waiting_list_main_content_size{
+  flex: 1;
+  background:rgb(142, 194, 215);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sm_call_screen_drug_main .sm_call_screen_drug_middle .sm_call_screen_drug_middle_attending_treatment_main{
+  padding: 2vh 1vw;
+  display: flex;
+  flex-direction:column;
+  background:rgba(0, 0, 0, 0.2);
+  border-top-left-radius:4vw;
+  border-top-right-radius:4vw;
+  position: absolute;
+   left: 1vw;
+   right: 1vw;
+   top: 2vh;
+   bottom: 2vh;
+}
+
+.sm_call_screen_drug_main .sm_call_screen_drug_middle .sm_call_screen_drug_middle_attending_treatment_main_bg{
+  display: flex;
+  flex-direction:column;
+  height: 100%;
+  background:rgba(0, 0, 0, 0.2);
+  border-top-left-radius:4vw;
+  border-top-right-radius:4vw;
+}
+
+.sm_call_screen_drug_main .sm_call_screen_drug_middle .sm_call_screen_drug_middle_attending_treatment_main_top{
+  text-align: center;
+  opacity:1;
+  width:100%;
+  height:10vh;
+  background:linear-gradient(0deg,rgba(231,233,228,1),rgba(248,247,245,1),rgba(201,200,196,1));
+  box-shadow:0px 0px 4px 0px rgba(35,24,21,0.38);
+  border-radius:3vw 3vw 0px 0px;
+}
+
+.sm_call_screen_drug_main .sm_call_screen_drug_middle .sm_call_screen_drug_middle_attending_treatment_main_middle{
+  padding:2vh 0vw;
+  display: flex;
+  flex-direction:row
+}
+
+.sm_call_screen_drug_main .sm_call_screen_drug_middle .sm_call_screen_drug_middle_attending_treatment_main_bottom{
+  flex: 1;
+  display: flex;
+  flex-direction:row;
+}
+
+.sm_call_screen_drug_main .sm_call_screen_drug_middle_attending_treatment_main_middle_left{
+  width:30vw;
+  height:20vh;
+  background:linear-gradient(0deg,rgba(231,233,228,1),rgba(248,247,245,1),rgba(201,200,196,1));
+  box-shadow:0px 0px 4px 0px rgba(35,24,21,0.38);
+  border-radius:2vw 0px 0px 2vw;
+  text-align: center;
+}
+
+.sm_call_screen_drug_main .sm_call_screen_drug_middle_attending_treatment_main_middle_right{
+  flex: 1;
+  height:20vh;
+  background:rgb(142, 194, 215);
+  text-align:center;
+  margin-left: 1vw
+}
+
+/* 底部容器 */  
+.sm_call_screen_drug_main .sm_call_screen_drug_bottom{
+ height:4vh;
+  text-align: center;
+  width: 100%;
+  background: url(./img/call_screen_img/foot_bg.png);
+}
+
+/*字体大小*/
+.sm_call_screen_drug_main .sm_call_screen_drug_font_size_3vh{
+  font-size:3vh;
+  font-family: SimSun;
+}
+
+.sm_call_screen_drug_main .sm_call_screen_drug_font_size_4vh{
+  font-size:4vh;
+  font-family: SimSun;
+}
+
+.sm_call_screen_drug_main .sm_call_screen_drug_font_size_5vh{
+ font-size:5vh;
+ font-family: SimSun;
+}
+
+.sm_call_screen_drug_main .sm_call_screen_drug_font_size_6vh{
+  font-size:6vh;
+  font-family: SimSun;
+}
+
+.sm_call_screen_drug_main .sm_call_screen_drug_font_size_7vh{
+  font-size:7vh;
+  font-family: SimSun;
+}
+
+/* 字体颜色 */  
+.sm_call_screen_drug_font_color{
+ color:#fff;
+}
