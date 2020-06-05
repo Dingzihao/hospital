@@ -1,6 +1,7 @@
 package com.dzh.hospital.util;
 
 import android.content.Context;
+import android.os.Environment;
 import android.util.Log;
 
 import com.baidu.tts.client.SpeechError;
@@ -16,8 +17,8 @@ public class TTSUtils implements SpeechSynthesizerListener {
     private static volatile TTSUtils instance = null;
     private SpeechSynthesizer mSpeechSynthesizer;
 
-//    private static final String SAMPLE_DIR = Environment.getExternalStorageDirectory().getAbsolutePath() + "/baiduTTS/";
-    private static final String SAMPLE_DIR = "/sdcard/baiduTTS/";
+    private static final String SAMPLE_DIR = Environment.getExternalStorageDirectory().getAbsolutePath() + "/baiduTTS/";
+//    private static final String SAMPLE_DIR = "/sdcard/baiduTTS/";
     private static final String SPEECH_FEMALE_MODEL_NAME = "bd_etts_common_speech_f7_mand_eng_high_am-mgc_v3.6.0_20190117.dat";
     private static final String TEXT_MODEL_NAME = "bd_etts_common_text_txt_all_mand_eng_middle_big_v3.4.2_20190710.dat";
 

@@ -3,6 +3,8 @@ package com.dzh.hospital.view;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.webkit.WebChromeClient;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -53,6 +55,11 @@ public class WelcomeActivity extends AppCompatActivity {
         mDataBinding.webView.setWebChromeClient(new WebChromeClient());
         mDataBinding.webView.setWebViewClient(new WebViewClient() {
             @Override
+            public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+                super.onReceivedError(view, request, error);
+            }
+
+            @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 super.onPageStarted(view, url, favicon);
             }
@@ -67,7 +74,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 return super.shouldOverrideUrlLoading(view, newurl);
             }
         });
-        mDataBinding.webView.loadUrl("https://www.baidu.com");
+        mDataBinding.webView.loadUrl("file:///android_asset/page/welcome.html");
 
         downTimer();
     }

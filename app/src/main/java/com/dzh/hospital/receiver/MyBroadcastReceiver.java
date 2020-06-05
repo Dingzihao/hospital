@@ -23,7 +23,6 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
          */
         if (ACTION_BOOT.equals(intent.getAction())) {
             Intent intentActivity = new Intent(context, MainActivity.class);
-            intentActivity.putExtra("BOOT_COMPLETED", true);
             intentActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intentActivity);
         }
