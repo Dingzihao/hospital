@@ -31,6 +31,7 @@ import androidx.databinding.DataBindingUtil;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.blankj.utilcode.util.DeviceUtils;
 import com.blankj.utilcode.util.NetworkUtils;
+import com.blankj.utilcode.util.ScreenUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.dzh.hospital.R;
 import com.dzh.hospital.databinding.ActivityMainBinding;
@@ -58,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
     private ACProgressFlower dialog;
     String mac = "";
     String ipAddress = "";
+    String screenSize = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,12 +75,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        if (TextUtils.isEmpty(SpUtil.getPath())){
+        if (TextUtils.isEmpty(SpUtil.getPath())) {
             SpUtil.setPath("/pages/sm/sm_call_screen_reg.html");
         }
 
         mac = DeviceUtils.getMacAddress();
         ipAddress = NetworkUtils.getIPAddress(true);
+        screenSize = ScreenUtils.getScreenWidth() + "*" + ScreenUtils.getScreenHeight();
 
         mDataBinding.webView.getSettings().setJavaScriptEnabled(true);
         //不显示垂直滚动条
@@ -145,12 +148,14 @@ public class MainActivity extends AppCompatActivity {
 
         TextView cancel = v.findViewById(R.id.cancel);
         TextView confirm = v.findViewById(R.id.confirm);
+        TextView size = v.findViewById(R.id.screenSize);
         EditText et_ip = v.findViewById(R.id.tv_ip);
         EditText et_url = v.findViewById(R.id.tv_url);
         EditText et_sn = v.findViewById(R.id.tv_sn);
         et_ip.setText(SpUtil.getIp());
         et_url.setText(SpUtil.getPath());
         et_sn.setText(SpUtil.getSn());
+        size.setText(screenSize);
         final AlertDialog dialog = builder.create();
         dialog.setView(v);
         dialog.show();
@@ -167,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
                 ToastUtils.showShort("请将配置项填写完整");
                 return;
             }
-            if (!SpUtil.getSn().equals(et_sn.getText().toString())){
+            if (!SpUtil.getSn().equals(et_sn.getText().toString())) {
                 SpUtil.setSn(et_sn.getText().toString());
                 TTSUtils.getInstance().init(this);
             }
