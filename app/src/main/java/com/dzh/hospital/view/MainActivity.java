@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,8 +31,10 @@ import androidx.databinding.DataBindingUtil;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.blankj.utilcode.util.DeviceUtils;
 import com.blankj.utilcode.util.NetworkUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.dzh.hospital.R;
 import com.dzh.hospital.databinding.ActivityMainBinding;
+import com.dzh.hospital.util.SpUtil;
 import com.dzh.hospital.util.TTSUtils;
 
 import java.util.ArrayList;
@@ -52,8 +55,6 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding mDataBinding;
     String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE,};
     private boolean isError = false;
-    private String baseIp = "";
-    private String baseUrl = "/pages/sm/sm_call_screen_reg.html";
     private ACProgressFlower dialog;
     String mac = "";
     String ipAddress = "";
@@ -72,6 +73,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initView() {
+        if (TextUtils.isEmpty(SpUtil.getPath())){
+            SpUtil.setPath("/pages/sm/sm_call_screen_reg.html");
+        }
+
         mac = DeviceUtils.getMacAddress();
         ipAddress = NetworkUtils.getIPAddress(true);
 
@@ -118,18 +123,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         mDataBinding.webView.addJavascriptInterface(new DecoObject(), "android");
-        mDataBinding.webView.loadUrl("file:///android_asset/demo/sm_call_screen_outpatdept_main.html?mac=" + mac + "&ip=" + ipAddress);
-    }
 
-
-    private void setMacAndIp(String macAddress, String ip) {
-        mDataBinding.webView.evaluateJavascript("javascript:setMacAndIp(" + macAddress + "," + ip + ")", value -> {
-        });
+        if (!TextUtils.isEmpty(SpUtil.getIp()) && !TextUtils.isEmpty(SpUtil.getPath()) && !TextUtils.isEmpty(SpUtil.getSn())) {
+            mDataBinding.webView.loadUrl(SpUtil.getIp() + SpUtil.getPath() + "?mac=" + mac + "&ip=" + ipAddress);
+        }
+        if (TextUtils.isEmpty(SpUtil.getIp()) || TextUtils.isEmpty(SpUtil.getPath()) || TextUtils.isEmpty(SpUtil.getSn())) {
+            setting();
+        }
+//        mDataBinding.webView.loadUrl("file:///android_asset/demo/sm_call_screen_outpatdept_main.html?mac=" + mac + "&ip=" + ipAddress);
     }
 
     public void reLoad() {
         String parm = "?mac=" + mac + "&ip=" + ipAddress;
-        mDataBinding.webView.loadUrl(baseIp + baseUrl + parm);
+        mDataBinding.webView.loadUrl(SpUtil.getIp() + SpUtil.getPath() + parm);
     }
 
     public void setting() {
@@ -141,8 +147,10 @@ public class MainActivity extends AppCompatActivity {
         TextView confirm = v.findViewById(R.id.confirm);
         EditText et_ip = v.findViewById(R.id.tv_ip);
         EditText et_url = v.findViewById(R.id.tv_url);
-        et_ip.setText(baseIp);
-        et_url.setText(baseUrl);
+        EditText et_sn = v.findViewById(R.id.tv_sn);
+        et_ip.setText(SpUtil.getIp());
+        et_url.setText(SpUtil.getPath());
+        et_sn.setText(SpUtil.getSn());
         final AlertDialog dialog = builder.create();
         dialog.setView(v);
         dialog.show();
@@ -155,8 +163,16 @@ public class MainActivity extends AppCompatActivity {
         });
 
         confirm.setOnClickListener(view -> {
-            baseIp = et_ip.getText().toString();
-            baseUrl = et_url.getText().toString();
+            if (TextUtils.isEmpty(et_ip.getText()) || TextUtils.isEmpty(et_url.getText()) || TextUtils.isEmpty(et_sn.getText())) {
+                ToastUtils.showShort("请将配置项填写完整");
+                return;
+            }
+            if (!SpUtil.getSn().equals(et_sn.getText().toString())){
+                SpUtil.setSn(et_sn.getText().toString());
+                TTSUtils.getInstance().init(this);
+            }
+            SpUtil.setIp(et_ip.getText().toString());
+            SpUtil.setPath(et_url.getText().toString());
             reLoad();
             dialog.dismiss();
         });
@@ -169,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
         TTSUtils.getInstance().release();
     }
 
-    public class DecoObject {
+    public static class DecoObject {
         @JavascriptInterface
         public void speak(String data) {
             TTSUtils.getInstance().speak(data);

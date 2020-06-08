@@ -2,12 +2,14 @@ package com.dzh.hospital.util;
 
 import android.content.Context;
 import android.os.Environment;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.baidu.tts.client.SpeechError;
 import com.baidu.tts.client.SpeechSynthesizer;
 import com.baidu.tts.client.SpeechSynthesizerListener;
 import com.baidu.tts.client.TtsMode;
+import com.blankj.utilcode.util.ToastUtils;
 
 import java.io.IOException;
 
@@ -18,16 +20,19 @@ public class TTSUtils implements SpeechSynthesizerListener {
     private SpeechSynthesizer mSpeechSynthesizer;
 
     private static final String SAMPLE_DIR = Environment.getExternalStorageDirectory().getAbsolutePath() + "/baiduTTS/";
-//    private static final String SAMPLE_DIR = "/sdcard/baiduTTS/";
     private static final String SPEECH_FEMALE_MODEL_NAME = "bd_etts_common_speech_f7_mand_eng_high_am-mgc_v3.6.0_20190117.dat";
     private static final String TEXT_MODEL_NAME = "bd_etts_common_text_txt_all_mand_eng_middle_big_v3.4.2_20190710.dat";
 
-    private static final String APIKEY = "jlWuumfM9ZcvP362L9xEGEYG";
-    private static final String SECRETKEY = "KjBw0rCvT9apX4Xac4E3VmYkoDOgvgP2";
-    private static final String APPID = "20097709";
-    private static final String SN = "97a73e88-737af206-04e4-00f4-247a9-00";
-//    private static final String SN = "7f2b6d25-65268198-04e4-00c3-247aa-00";
+    private static final String APIKEY = "y4gR4x4Z45xMsQBIGTCv22gT";
+    private static final String SECRETKEY = "oaUGrHqY3Bx6w6n3SkhKnXb8euzhFBQn";
+    private static final String APPID = "20293761";
+//    private static final String SN = "794bb705-6fc672f7-052d-0021-2521b-00";
 
+//    private static final String APIKEY = "jlWuumfM9ZcvP362L9xEGEYG";
+//    private static final String SECRETKEY = "KjBw0rCvT9apX4Xac4E3VmYkoDOgvgP2";
+//    private static final String APPID = "20097709";
+//    private static final String SN = "97a73e88-737af206-04e4-00f4-247a9-00";
+//    private static final String SN = "7f2b6d25-65268198-04e4-00c3-247aa-00";
     private TTSUtils() {
     }
 
@@ -69,24 +74,29 @@ public class TTSUtils implements SpeechSynthesizerListener {
         // 设置合成的语调，0-15 ，默认 5
         mSpeechSynthesizer.setParam(SpeechSynthesizer.PARAM_PITCH, "5");
         // 纯离线sdk这个参数必填；离在线sdk没有此参数        // 初始化tts
-        mSpeechSynthesizer.setParam(SpeechSynthesizer.PARAM_AUTH_SN, SN);
+        if (!TextUtils.isEmpty(SpUtil.getSn())) {
+            mSpeechSynthesizer.setParam(SpeechSynthesizer.PARAM_AUTH_SN, SpUtil.getSn());
 
-        OfflineResource offlineResource = createOfflineResource(context,OfflineResource.VOICE_FEMALE);
-        // 声学模型文件路径 (离线引擎使用), 请确认下面两个文件存在
-        mSpeechSynthesizer.setParam(SpeechSynthesizer.PARAM_TTS_TEXT_MODEL_FILE, offlineResource.getTextFilename());
-        mSpeechSynthesizer.setParam(SpeechSynthesizer.PARAM_TTS_SPEECH_MODEL_FILE, offlineResource.getModelFilename());
+            OfflineResource offlineResource = createOfflineResource(context, OfflineResource.VOICE_FEMALE);
+            // 声学模型文件路径 (离线引擎使用), 请确认下面两个文件存在
+            mSpeechSynthesizer.setParam(SpeechSynthesizer.PARAM_TTS_TEXT_MODEL_FILE, offlineResource.getTextFilename());
+            mSpeechSynthesizer.setParam(SpeechSynthesizer.PARAM_TTS_SPEECH_MODEL_FILE, offlineResource.getModelFilename());
 
-        mSpeechSynthesizer.initTts(TtsMode.OFFLINE);
+            int result = mSpeechSynthesizer.initTts(TtsMode.OFFLINE);
+            if (result != 0) {
+                ToastUtils.showLong("序列号输入有误，请重新输入");
+            }
+        }
     }
 
-    protected OfflineResource createOfflineResource(Context context,String voiceType) {
+    protected OfflineResource createOfflineResource(Context context, String voiceType) {
         OfflineResource offlineResource = null;
         try {
             offlineResource = new OfflineResource(context, voiceType);
         } catch (IOException e) {
             // IO 错误自行处理
             e.printStackTrace();
-            Log.d(TAG,"【error】:copy files from assets failed." + e.getMessage());
+            Log.d(TAG, "【error】:copy files from assets failed." + e.getMessage());
         }
         return offlineResource;
     }

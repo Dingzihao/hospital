@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginLeft="50dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="30dp"
         android:layout_marginRight="50dp"
         android:orientation="horizontal">
 
@@ -32,18 +32,41 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginLeft="50dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:layout_marginRight="50dp"
         android:orientation="horizontal">
         <TextView
             android:layout_width="100dp"
             android:layout_height="match_parent"
             android:gravity="center|right"
-            android:text="网页地址："
+            android:text="path地址："
             android:textSize="20sp" />
 
         <EditText
             android:id="@+id/tv_url"
+            android:layout_width="300dp"
+            android:layout_height="match_parent"
+            android:inputType="text"
+            android:singleLine="true" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="50dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:gravity="center|right"
+            android:text="序列号："
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/tv_sn"
             android:layout_width="300dp"
             android:layout_height="match_parent"
             android:inputType="text"
