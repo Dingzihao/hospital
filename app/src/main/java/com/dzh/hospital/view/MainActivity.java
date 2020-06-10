@@ -149,6 +149,7 @@ public class MainActivity extends AppCompatActivity {
         TextView cancel = v.findViewById(R.id.cancel);
         TextView confirm = v.findViewById(R.id.confirm);
         TextView size = v.findViewById(R.id.screenSize);
+        TextView play = v.findViewById(R.id.play);
         EditText et_ip = v.findViewById(R.id.tv_ip);
         EditText et_url = v.findViewById(R.id.tv_url);
         EditText et_sn = v.findViewById(R.id.tv_sn);
@@ -165,6 +166,10 @@ public class MainActivity extends AppCompatActivity {
 
         cancel.setOnClickListener(view -> {
             dialog.dismiss();
+        });
+
+        play.setOnClickListener(view -> {
+            TTSUtils.getInstance().speak("语音已激活");
         });
 
         confirm.setOnClickListener(view -> {

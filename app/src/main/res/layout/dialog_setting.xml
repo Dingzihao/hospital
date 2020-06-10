@@ -127,5 +127,16 @@
             android:padding="3dp"
             android:text="修改"
             android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/play"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:background="@drawable/bg_text"
+            android:gravity="center"
+            android:padding="3dp"
+            android:text="语音测试"
+            android:textSize="15sp" />
     </LinearLayout>
 </LinearLayout>
