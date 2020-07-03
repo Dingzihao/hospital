@@ -99,7 +99,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 super.onPageStarted(view, url, favicon);
-                showDialog();
             }
 
             @Override
@@ -128,6 +127,7 @@ public class MainActivity extends AppCompatActivity {
         mDataBinding.webView.addJavascriptInterface(new DecoObject(), "android");
 
         if (!TextUtils.isEmpty(SpUtil.getIp()) && !TextUtils.isEmpty(SpUtil.getPath()) && !TextUtils.isEmpty(SpUtil.getSn())) {
+            showDialog();
             mDataBinding.webView.loadUrl(SpUtil.getIp() + SpUtil.getPath() + "?mac=" + mac + "&ip=" + ipAddress);
         }
         if (TextUtils.isEmpty(SpUtil.getIp()) || TextUtils.isEmpty(SpUtil.getPath()) || TextUtils.isEmpty(SpUtil.getSn())) {
@@ -137,6 +137,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void reLoad() {
+        showDialog();
         String parm = "?mac=" + mac + "&ip=" + ipAddress;
         mDataBinding.webView.loadUrl(SpUtil.getIp() + SpUtil.getPath() + parm);
     }
@@ -260,6 +261,15 @@ public class MainActivity extends AppCompatActivity {
         if (null != dialog) {
             dialog.dismiss();
             dialog = null;
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mDataBinding.webView.canGoBack()){
+            mDataBinding.webView.goBack();
+        } else {
+            super.onBackPressed();
         }
     }
 }
