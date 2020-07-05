@@ -4,9 +4,11 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -60,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
     String mac = "";
     String ipAddress = "";
     String screenSize = "";
+    MediaPlayer mMediaPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
         if (TextUtils.isEmpty(SpUtil.getPath())) {
             SpUtil.setPath("/pages/sm/sm_call_screen_reg.html");
         }
-
+        mMediaPlayer = MediaPlayer.create(this, R.raw.call);
         mac = DeviceUtils.getMacAddress();
         ipAddress = NetworkUtils.getIPAddress(true);
         screenSize = ScreenUtils.getScreenWidth() + "*" + ScreenUtils.getScreenHeight();
@@ -154,10 +157,12 @@ public class MainActivity extends AppCompatActivity {
         EditText et_ip = v.findViewById(R.id.tv_ip);
         EditText et_url = v.findViewById(R.id.tv_url);
         EditText et_sn = v.findViewById(R.id.tv_sn);
+        EditText delay = v.findViewById(R.id.tv_delay);
         et_ip.setText(SpUtil.getIp());
         et_url.setText(SpUtil.getPath());
         et_sn.setText(SpUtil.getSn());
         size.setText(screenSize);
+        delay.setText(String.valueOf(SpUtil.getDelay()));
         final AlertDialog dialog = builder.create();
         dialog.setView(v);
         dialog.show();
@@ -184,6 +189,7 @@ public class MainActivity extends AppCompatActivity {
             }
             SpUtil.setIp(et_ip.getText().toString());
             SpUtil.setPath(et_url.getText().toString());
+            SpUtil.setDelay(TextUtils.isEmpty(delay.getText().toString())?20:Integer.parseInt(delay.getText().toString()));
             reLoad();
             dialog.dismiss();
         });
@@ -193,13 +199,19 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         dismissDialog();
+        mMediaPlayer.stop();
         TTSUtils.getInstance().release();
     }
 
-    public static class DecoObject {
+    public class DecoObject {
         @JavascriptInterface
         public void speak(String data) {
             TTSUtils.getInstance().speak(data);
+        }
+
+        @JavascriptInterface
+        public void call() {
+            mMediaPlayer.start();
         }
     }
 
