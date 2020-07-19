@@ -1,6 +1,7 @@
 package com.dzh.hospital.util;
 
 import android.content.Context;
+import android.media.MediaPlayer;
 import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
@@ -10,6 +11,7 @@ import com.baidu.tts.client.SpeechSynthesizer;
 import com.baidu.tts.client.SpeechSynthesizerListener;
 import com.baidu.tts.client.TtsMode;
 import com.blankj.utilcode.util.ToastUtils;
+import com.dzh.hospital.R;
 
 import java.io.IOException;
 
@@ -156,6 +158,12 @@ public class TTSUtils implements SpeechSynthesizerListener {
     @Override
     public void onSpeechFinish(String s) {
         // 监听到播放结束，在此添加相关操作
+        try {
+            Thread.currentThread();
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

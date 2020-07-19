@@ -9,6 +9,7 @@ public class SpUtil {
      * 序列号
      */
     private static final String SN = "SN";
+    private static final String DELAY = "DELAY";
 
 
     public static void setIp(String ip) {
@@ -33,5 +34,12 @@ public class SpUtil {
 
     public static String getSn() {
         return SPUtils.getInstance(SN).getString(SN);
+    }
+    public static void setDelay(int Sn) {
+        SPUtils.getInstance(DELAY).put(DELAY, Sn);
+    }
+
+    public static int getDelay() {
+        return SPUtils.getInstance(DELAY).getInt(DELAY,20);
     }
 }
