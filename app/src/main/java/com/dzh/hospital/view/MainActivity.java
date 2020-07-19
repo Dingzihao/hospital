@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
             SpUtil.setPath("/pages/sm/sm_call_screen_reg.html");
         }
 
-        mac = DeviceUtils.getMacAddress();
+        mac = DeviceUtils.getUniqueDeviceId();
         ipAddress = NetworkUtils.getIPAddress(true);
         screenSize = ScreenUtils.getScreenWidth() + "*" + ScreenUtils.getScreenHeight();
 
